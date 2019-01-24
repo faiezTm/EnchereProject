@@ -19,21 +19,21 @@
 	rel="stylesheet" type="text/css" />
 <!-- end: GOOGLE FONTS -->
 <!-- start: MAIN CSS -->
-<link rel="stylesheet" href="vendor/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" href="../vendor/bootstrap/css/bootstrap.min.css">
 <link rel="stylesheet"
-	href="vendor/fontawesome/css/font-awesome.min.css">
+	href="../vendor/fontawesome/css/font-awesome.min.css">
 <link rel="stylesheet" href="vendor/themify-icons/themify-icons.min.css">
-<link href="vendor/animate.css/animate.min.css" rel="stylesheet"
+<link href="../vendor/animate.css/animate.min.css" rel="stylesheet"
 	media="screen">
-<link href="vendor/perfect-scrollbar/perfect-scrollbar.min.css"
+<link href="../vendor/perfect-scrollbar/perfect-scrollbar.min.css"
 	rel="stylesheet" media="screen">
-<link href="vendor/switchery/switchery.min.css" rel="stylesheet"
+<link href="../vendor/switchery/switchery.min.css" rel="stylesheet"
 	media="screen">
 <!-- end: MAIN CSS -->
 <!-- start: CLIP-TWO CSS -->
-<link rel="stylesheet" href="assets/css/styles.css">
-<link rel="stylesheet" href="assets/css/plugins.css">
-<link rel="stylesheet" href="assets/css/themes/theme-1.css"
+<link rel="stylesheet" href="../assets/css/styles.css">
+<link rel="stylesheet" href="../assets/css/plugins.css">
+<link rel="stylesheet" href="../assets/css/themes/theme-1.css"
 	id="skin_color" />
 </head>
 <body>
