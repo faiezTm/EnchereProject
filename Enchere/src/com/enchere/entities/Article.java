@@ -1,5 +1,133 @@
 package com.enchere.entities;
 
-public class Article {
+import java.util.ArrayList;
+import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
+
+@Entity
+@Inheritance(strategy=InheritanceType.JOINED)
+public class Article {
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="id_seq")
+	@SequenceGenerator(name="id_seq",sequenceName="id_seq", allocationSize=1)
+	protected int idArticle;
+	protected String descrption;
+	protected Date dateDebut;
+	protected Date dateFin;
+	protected double prixInit;
+	protected String lieu;
+	protected String pays;
+	protected String region;
+	protected double prixReserve;
+	protected byte[] photo;
+	protected boolean visibiliteReserve;
+	protected String definitionArt;
+	protected String typeEnchere;
+	
+	public int getIdArticle() {
+		return idArticle;
+	}
+	public void setIdArticle(int idArticle) {
+		this.idArticle = idArticle;
+	}
+	public String getDescrption() {
+		return descrption;
+	}
+	public void setDescrption(String descrption) {
+		this.descrption = descrption;
+	}
+	public Date getDateDebut() {
+		return dateDebut;
+	}
+	public void setDateDebut(Date dateDebut) {
+		this.dateDebut = dateDebut;
+	}
+	public Date getDateFin() {
+		return dateFin;
+	}
+	public void setDateFin(Date dateFin) {
+		this.dateFin = dateFin;
+	}
+	public double getPrixInit() {
+		return prixInit;
+	}
+	public void setPrixInit(double prixInit) {
+		this.prixInit = prixInit;
+	}
+	public String getLieu() {
+		return lieu;
+	}
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
+	}
+	public String getPays() {
+		return pays;
+	}
+	public void setPays(String pays) {
+		this.pays = pays;
+	}
+	public String getRegion() {
+		return region;
+	}
+	public void setRegion(String region) {
+		this.region = region;
+	}
+	public double getPrixReserve() {
+		return prixReserve;
+	}
+	public void setPrixReserve(double prixReserve) {
+		this.prixReserve = prixReserve;
+	}
+	public byte[] getPhoto() {
+		return photo;
+	}
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
+	}
+	public boolean isVisibiliteReserve() {
+		return visibiliteReserve;
+	}
+	public void setVisibiliteReserve(boolean visibiliteReserve) {
+		this.visibiliteReserve = visibiliteReserve;
+	}
+	public String getDefinitionArt() {
+		return definitionArt;
+	}
+	public void setDefinitionArt(String definitionArt) {
+		this.definitionArt = definitionArt;
+	}
+	public String getTypeEnchere() {
+		return typeEnchere;
+	}
+	public void setTypeEnchere(String typeEnchere) {
+		this.typeEnchere = typeEnchere;
+	}
+	public Article(String descrption, Date dateDebut, Date dateFin, double prixInit, String lieu,
+			String pays, String region, double prixReserve, byte[] photo, boolean visibiliteReserve,
+			String definitionArt, String typeEnchere) {
+		super();
+		this.idArticle = idArticle;
+		this.descrption = descrption;
+		this.dateDebut = dateDebut;
+		this.dateFin = dateFin;
+		this.prixInit = prixInit;
+		this.lieu = lieu;
+		this.pays = pays;
+		this.region = region;
+		this.prixReserve = prixReserve;
+		this.photo = photo;
+		this.visibiliteReserve = visibiliteReserve;
+		this.definitionArt = definitionArt;
+		this.typeEnchere = typeEnchere;
+	}
+	
+	
 }
