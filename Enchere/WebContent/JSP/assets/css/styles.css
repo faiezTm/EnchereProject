@@ -49,9 +49,11 @@
 /* ---------------------------------------------------------------------- */
 /*  Basic Elements & Classes
 /* ---------------------------------------------------------------------- */
+
 html, body {
   height: 100%;
   width: 100%;
+ /* background-color: red !important;*/
 }
 
 html {
@@ -661,6 +663,7 @@ h5.over-title {
   padding: 5px 15px 5px 15px;
   position: relative;
   text-align: center;
+  margin-left:50px !important;
 }
 @media (min-width: 768px) {
   .navbar .navbar-right > li > a {
@@ -9347,6 +9350,7 @@ nav.links a {
   text-shadow: 1px 1px 1px #FFFFFF;
   top: 9px;
 }
+
 .main-login input.password {
   padding-right: 130px;
 }
