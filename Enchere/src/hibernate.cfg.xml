@@ -5,34 +5,43 @@
 
 <hibernate-configuration>
 
-    <session-factory>
+	<session-factory>
 
-        <!-- Database connection settings -->
-        <property name="connection.driver_class">oracle.jdbc.driver.OracleDriver</property>
-        <property name="connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
-        <property name="connection.username">Abderrahmen</property>
-        <property name="connection.password">master</property>
+		<!-- Database connection settings -->
+		<property name="connection.driver_class">oracle.jdbc.OracleDriver</property>
+		<property name="connection.url">jdbc:oracle:thin:@localhost:1521:xe</property>
+		<property name="connection.username">FAZZ</property>
+		<property name="connection.password">20592566</property>
 
-        <!-- JDBC connection pool (use the built-in) -->
-        <property name="connection.pool_size">1</property>
+		<!-- JDBC connection pool (use the built-in) -->
+		<property name="connection.pool_size">2</property>
 
-        <!-- SQL dialect -->
-        <property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
+		<!-- SQL dialect -->
+		<property name="dialect">org.hibernate.dialect.Oracle10gDialect</property>
 
-        <!-- Enable Hibernate's current session context -->
-        <property name="current_session_context_class">org.hibernate.context.ManagedSessionContext</property>
+		<!-- Enable Hibernate's current session context -->
+		<property name="current_session_context_class">org.hibernate.context.ManagedSessionContext</property>
 
-        <!-- Disable the second-level cache  -->
-        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+		<!-- Disable the second-level cache -->
+		<property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">true</property>
+		<!-- Echo all executed SQL to stdout -->
+		<property name="show_sql">true</property>
 
-        <!-- Drop and re-create the database schema on startup -->
-        <property name="hbm2ddl.auto">update</property>
+		<!-- Drop and re-create the database schema on startup -->
+		
+
+		  <property name="hbm2ddl.auto">update</property>
 		<mapping class="com.enchere.entities.Article" />
 		<mapping class="com.enchere.entities.ArticleEnchereAnglaise" />
-		<mapping class="com.enchere.entities.ArticleEnchereHollandaise" />
-    </session-factory>
+		<mapping class="com.enchere.entities.ArticleEnchereHollandaise" /> 
+		<mapping class="com.enchere.entities.Rubrique" />
+		<mapping class="com.enchere.entities.Utilisateur" />
+		<mapping class="com.enchere.entities.Membre" />
+		<mapping class="com.enchere.entities.ConfigurationSite" />
+
+
+	</session-factory>
 
 </hibernate-configuration>
+

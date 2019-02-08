@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-	 <%@ taglib uri= "http://java.sun.com/jsp/jstl/core" prefix ="c" %> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -65,66 +64,23 @@
 					<span>Main Navigation</span>
 				</div>
 
-				<form class="form-login" action="../Authentification" method="post">
-					<fieldset>
 
-						<p>Please enter your name and password to log in.</p>
-						<div class="form-group">
-							<span class="input-icon"> <input type="text"
-								class="form-control" name="login" placeholder="Username">
-								<i class="fa fa-user"></i>
-							</span>
-						</div>
-						<div class="form-group form-actions">
-						
-							<span class="input-icon"> <input type="password"
-								class="form-control password" name="password"
-								placeholder="Password"> <i class="fa fa-lock"></i> <a
-								class="forgot" href="login_forgot.html"> I forgot my
-									password </a>
-							</span>
-						</div>
-						<div class="form-actions">
-
-							<button type="submit" class="btn btn-primary pull-right">
-								Login <i class="fa fa-arrow-circle-right"></i>
-							</button>
-							<p Style="color:red"> ${ message } </p>
-						</div>
-						<br>
-						<br>
-						<div class="new-account">
-							Don't have an account yet? <a href="login_registration.html">
-								Create an account </a>
-						</div>
-					</fieldset>
-				</form>
- 
 				<ul class="main-navigation-menu">
 					<div class="navbar-title item-media ">
 						<span style="color: #007AFF;"><b style="font-size: 15px">Catégorie</b></span>
 					</div>
-	
-					
-					<li><c:forEach var="Rubrique" items="${ listRubrique }" varStatus="loop">
-					<c:if test="${ Rubrique.getMasterRubrique() == null }">
-					<a href="javascript:void(0)">
+					<li><a href="javascript:void(0)">
 							<div class="item-content">
 								<div class="item-media">
 									<i class="ti-menu-alt"></i>
 								</div>
-												
 								<div class="item-inner">
-									<span class="title">${ Rubrique.getNomRubrique() } </span><i class="icon-arrow"></i>
+									<span class="title"> Categorie_1 </span><i class="icon-arrow"></i>
 								</div>
 							</div>
 					</a>
-					<ul class="sub-menu">
-					<c:forEach var="Rubrique2" items="${ listFils }" varStatus="loop">
-					<c:if test="${ Rubrique2.getMasterRubrique().getIdRubrique() ==Rubrique.getIdRubrique()  }">
-							
-						
-									<li><a href="javascript:;"> <span>${ Rubrique2.getNomRubrique() } </span> <i
+						<ul class="sub-menu">
+							<li><a href="javascript:;"> <span>Item 1</span> <i
 									class="icon-arrow"></i>
 							</a>
 								<ul class="sub-menu">
@@ -153,18 +109,68 @@
 											<li><a href="#"> Sample Link 3 </a></li>
 										</ul></li>
 								</ul></li>
+							<li><a href="javascript:;"> <span>Item 2</span> <i
+									class="icon-arrow"></i>
 							</a>
-							
-							</c:if>
-					</c:forEach>
-					</ul>
-	
-	</c:if>
-					
-					
-					</c:forEach>
+								<ul class="sub-menu">
+									<li><a href="javascript:;"> <span>Sample Link 1</span>
+											<i class="icon-arrow"></i>
+									</a>
+										<ul class="sub-menu">
+											<li><a href="#"> Sample Link 1 </a></li>
+											<li><a href="#"> Sample Link 2 </a></li>
+											<li><a href="#"> Sample Link 3 </a></li>
+										</ul></li>
+									<li><a href="javascript:;"> <span>Sample Link 2</span>
+											<i class="icon-arrow"></i>
+									</a>
+										<ul class="sub-menu">
+											<li><a href="#"> Sample Link 1 </a></li>
+											<li><a href="#"> Sample Link 2 </a></li>
+											<li><a href="#"> Sample Link 3 </a></li>
+										</ul></li>
+									<li><a href="javascript:;"> <span>Sample Link 3</span>
+											<i class="icon-arrow"></i>
+									</a>
+										<ul class="sub-menu">
+											<li><a href="#"> Sample Link 1 </a></li>
+											<li><a href="#"> Sample Link 2 </a></li>
+											<li><a href="#"> Sample Link 3 </a></li>
+										</ul></li>
+								</ul></li>
+							<li><a href="javascript:;"> <span>Item 3</span> <i
+									class="icon-arrow"></i>
+							</a>
+								<ul class="sub-menu">
+									<li><a href="javascript:;"> <span>Sample Link 1</span>
+											<i class="icon-arrow"></i>
+									</a>
+										<ul class="sub-menu">
+											<li><a href="#"> Sample Link 1 </a></li>
+											<li><a href="#"> Sample Link 2 </a></li>
+											<li><a href="#"> Sample Link 3 </a></li>
+										</ul></li>
+									<li><a href="javascript:;"> <span>Sample Link 2</span>
+											<i class="icon-arrow"></i>
+									</a>
+										<ul class="sub-menu">
+											<li><a href="#"> Sample Link 1 </a></li>
+											<li><a href="#"> Sample Link 2 </a></li>
+											<li><a href="#"> Sample Link 3 </a></li>
+										</ul></li>
+									<li><a href="javascript:;"> <span>Sample Link 3</span>
+											<i class="icon-arrow"></i>
+									</a>
+										<ul class="sub-menu">
+											<li><a href="#"> Sample Link 1 </a></li>
+											<li><a href="#"> Sample Link 2 </a></li>
+											<li><a href="#"> Sample Link 3 </a></li>
+										</ul></li>
+								</ul></li>
+						</ul></li>
 
-						
+
+				</ul>
 				</nav>
 			</div>
 		</div>
