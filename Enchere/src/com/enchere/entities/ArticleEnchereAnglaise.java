@@ -1,5 +1,6 @@
 package com.enchere.entities;
 
+import java.sql.Blob;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -13,9 +14,12 @@ import org.hibernate.annotations.GenericGenerator;
 @PrimaryKeyJoinColumn(name = "idArticleEnchereAnglaise")
 public class ArticleEnchereAnglaise extends Article{
 	
-	
+	public ArticleEnchereAnglaise()
+	{
+		super();
+	}
 	public ArticleEnchereAnglaise(String descrption, Date dateDebut, Date dateFin, double prixInit, String lieu,
-			String pays, String region, double prixReserve, byte[] photo, boolean visibiliteReserve,
+			String pays, String region, double prixReserve, Blob photo, boolean visibiliteReserve,
 			String definitionArt, String typeEnchere, double incrementValue) {
 		super(descrption, dateDebut, dateFin, prixInit, lieu, pays, region, prixReserve, photo, visibiliteReserve,
 				definitionArt, typeEnchere);
@@ -23,7 +27,6 @@ public class ArticleEnchereAnglaise extends Article{
 	}
 	
 	private double incrementValue;
-	
 	
 	public double getIncrementValue() {
 		return incrementValue;

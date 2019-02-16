@@ -1,14 +1,18 @@
 package com.enchere.entities;
 
+import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.persistence.Basic;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.Lob;
 import javax.persistence.SequenceGenerator;
 
 @Entity
@@ -19,7 +23,7 @@ public class Article {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="id_seq")
 	@SequenceGenerator(name="id_seq",sequenceName="id_seq", allocationSize=1)
 	protected int idArticle;
-	protected String descrption;
+	protected String description;
 	protected Date dateDebut;
 	protected Date dateFin;
 	protected double prixInit;
@@ -27,7 +31,9 @@ public class Article {
 	protected String pays;
 	protected String region;
 	protected double prixReserve;
-	protected byte[] photo;
+	@Lob
+	protected Blob photo;
+	
 	protected boolean visibiliteReserve;
 	protected String definitionArt;
 	protected String typeEnchere;
@@ -38,11 +44,11 @@ public class Article {
 	public void setIdArticle(int idArticle) {
 		this.idArticle = idArticle;
 	}
-	public String getDescrption() {
-		return descrption;
+	public String getDescription() {
+		return description;
 	}
 	public void setDescrption(String descrption) {
-		this.descrption = descrption;
+		this.description = descrption;
 	}
 	public Date getDateDebut() {
 		return dateDebut;
@@ -86,10 +92,12 @@ public class Article {
 	public void setPrixReserve(double prixReserve) {
 		this.prixReserve = prixReserve;
 	}
-	public byte[] getPhoto() {
+	
+	
+	public Blob getPhoto() {
 		return photo;
 	}
-	public void setPhoto(byte[] photo) {
+	public void setPhoto(Blob photo) {
 		this.photo = photo;
 	}
 	public boolean isVisibiliteReserve() {
@@ -111,11 +119,11 @@ public class Article {
 		this.typeEnchere = typeEnchere;
 	}
 	public Article(String descrption, Date dateDebut, Date dateFin, double prixInit, String lieu,
-			String pays, String region, double prixReserve, byte[] photo, boolean visibiliteReserve,
+			String pays, String region, double prixReserve, Blob photo, boolean visibiliteReserve,
 			String definitionArt, String typeEnchere) {
 		super();
 		this.idArticle = idArticle;
-		this.descrption = descrption;
+		this.description = descrption;
 		this.dateDebut = dateDebut;
 		this.dateFin = dateFin;
 		this.prixInit = prixInit;
@@ -129,5 +137,7 @@ public class Article {
 		this.typeEnchere = typeEnchere;
 	}
 	
-	
+	public Article() {
+		
+	}
 }
