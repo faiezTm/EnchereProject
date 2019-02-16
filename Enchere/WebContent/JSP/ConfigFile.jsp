@@ -62,6 +62,7 @@ session.setAttribute("listConfig",listConfig);
 
 %>
 	<div id="app">
+	
 		<!-- sidebar -->
 		<div class="sidebar app-aside" id="sidebar">
 			<div class="sidebar-container perfect-scrollbar">
@@ -86,41 +87,7 @@ session.setAttribute("listConfig",listConfig);
 					<span>Main Navigation</span>
 				</div>
 
-				<form class="form-login" action="../Authentification" method="post">
-					<fieldset>
 
-						<p>Please enter your name and password to log in.</p>
-						<div class="form-group">
-							<span class="input-icon"> <input type="text"
-								class="form-control" name="login" placeholder="Username">
-								<i class="fa fa-user"></i>
-							</span>
-						</div>
-						<div class="form-group form-actions">
-						
-							<span class="input-icon"> <input type="password"
-								class="form-control password" name="password"
-								placeholder="Password"> <i class="fa fa-lock"></i> <a
-								class="forgot" href="login_forgot.html"> I forgot my
-									password </a>
-							</span>
-						</div>
-						<div class="form-actions">
-
-							<button type="submit" class="btn btn-primary pull-right">
-								Login <i class="fa fa-arrow-circle-right"></i>
-							</button>
-							<p Style="color:red"> ${ message } </p>
-						</div>
-						<br>
-						<br>
-						<div class="new-account">
-							Don't have an account yet? <a href="login_registration.html">
-								Create an account </a>
-						</div>
-					</fieldset>
-				</form>
- 
 				<ul class="main-navigation-menu">
 					<div class="navbar-title item-media ">
 						<span style="color: #007AFF;"><b style="font-size: 15px">Catégorie</b></span>
@@ -185,7 +152,6 @@ session.setAttribute("listConfig",listConfig);
 					
 					</c:forEach>
 
-						
 				</nav>
 			</div>
 		</div>
@@ -212,6 +178,9 @@ session.setAttribute("listConfig",listConfig);
 			<!-- end: NAVBAR HEADER --> <!-- start: NAVBAR COLLAPSE -->
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-right">
+				
+				<li class="dropdown"> <a href="ConfigFile.jsp" class="dropdown-toggle" >  <i class="ti-settings"></i><span>Configuration Site</span>
+					</a></li>
 					<li class="dropdown"><a href class="dropdown-toggle"
 						data-toggle="dropdown"> <i class="ti-home"></i> <span>ACCUEIl</span>
 					</a></li>
@@ -221,8 +190,8 @@ session.setAttribute("listConfig",listConfig);
 					</a></li>
 
 
-					<li class="dropdown"><a href="Inscription.jsp"  class="dropdown-toggle"
-						> <i class="ti-key"></i> <span>S'INSCRIRE</span>
+					<li class="dropdown"><a href class="dropdown-toggle"
+						data-toggle="dropdown"> <i class="ti-key"></i> <span>S'INSCRIRE</span>
 					</a></li>
 					<!-- start: MESSAGES DROPDOWN -->
 					<li class="dropdown"><a href class="dropdown-toggle"
@@ -240,17 +209,197 @@ session.setAttribute("listConfig",listConfig);
 					</a></li>
 			</header>
 			<!-- end: TOP NAVBAR -->
-			<div class="main-content">
-				<div class="wrap-content container" id="container"></div>
+			<div class="main-content" style="margin-left:300px; " >
+				<h1 class="mainTitle" >Configuration Site</h1>
+	<form action="../TestRubrique" method="post" role="form" id="idPage" >
+		<div class="row">
+			<div class="col-md-12">
+				<div class="errorHandler alert alert-danger no-display">
+					<i class="fa fa-times-sign"></i> You have some form errors. Please
+					check below.
+				</div>
+				<div class="successHandler alert alert-success no-display">
+					<i class="fa fa-ok"></i> Your form validation is successful!
+				</div>
+			</div>
+			<div class="col-md-6" id="idPage">
+				<div class="form-group">
+					<label class="control-label"> Nom Site <span
+						class="symbol required"></span>
+					</label> <input type="text" placeholder="Insérer le nom du site "
+						class="form-control" id="firstname" name="nomSite" value="${nomSite}">
+				</div>
+				<div class="form-group">
+					<label class="control-label"> Nombre d'article apparaissant
+						A la une <span class="symbol required"></span>
+					</label> <input type="number" placeholder="nombre d'article à la une"
+						class="form-control" id="lastname" name="nbrArticleApparaitALaUne" value="${nbrArticleApparaitALaUne}">
+				</div>
+				<div class="form-group">
+					<label class="control-label"> Tarif d'affichage A la une <span
+						class="symbol required"></span>
+					</label> <input type="text" placeholder="Tarif" class="form-control"
+						id="tarifALaUne" name="tarifAffichALaune" value="${tarifAffichALaune}">
+				</div>
+				<div class="form-group">
+					<label class="control-label"> Delai accordé pour confirmer
+						l'inscription en heures <span class="symbol required"></span>
+					</label> <input type="number" placeholder="delai confirmation  inscription"
+						class="form-control" id="lastname" name="delaiConfirmInscrit" value="${delaiConfirmInscrit} ">
+				</div>
+				<div class="form-group">
+					<label class="control-label"> Taux de commission prélevée
+						sur les ventes <span class="symbol required"></span>
+					</label> <input type="number" placeholder="Taux de commission "
+						class="form-control" id="lastname" name="tauxCommission" value="${tauxCommission}">
+				</div>
+
+				<div class="form-group">
+					<label class="control-label"> Reglements destinés aux
+						vendeurs <span class="symbol required"></span>
+					</label> <input type="number"
+						placeholder="Reglements destinés aux vendeurs "
+						class="form-control" id="reglementsDestVendeurs"
+						name="reglementsDestVendeurs" value="${reglementsDestVendeurs}">
+				</div>
+
+				<div class="form-group">
+					<label class="control-label"> Reglements destinés aux
+						acheteurs <span class="symbol required"></span>
+					</label> <input type="number"
+						placeholder="Reglements destinés aux acheteurs "
+						class="form-control" id="reglementDestAcheteurs"
+						name="reglementsAcheteurs" value="${reglementsAcheteurs}">
+				</div>
+
+				<div class="form-group">
+					<label for="sel1">Selectionner une rubrique</label> <select
+						class="form-control" id="sel1" name="selectMaster0">
+						<option value="aucune">Faites votre choix</option>
+						<c:forEach var="Rubrique2" items="${ listRubrique }"
+							varStatus="loop">
+							<option value="${Rubrique2.getNomRubrique() }">${Rubrique2.getNomRubrique()}</option>
+						</c:forEach>
+					</select> <label for="sel1">Ajouter une rubrique</label> <input type="texte"
+						placeholder="ajouter une rubrique " class="form-control"
+						id="ajoutRubrique" name="nomRubrique0">
+				</div>
+
+
 			</div>
 		</div>
+		</div>
+		</div>
+		
+		</div>
+		<br>
+	
+		<div class="row" style="margin-left:300px; " >
+
+			<div class="col-md-4">
+				<button class="btn btn-primary btn-wide pull-right" type="submit">
+					Enregister <i class="fa fa-arrow-circle-right"></i>
+				</button>
+			</div>
+				<div class="form-group">
+					
+				</div>
+			
+	</form>
+
+		<div class="row" >
+			<div class="col-md-12 space20">
+				<button class="btn btn-green add-row" onClick="ajout()">
+					Ajouter Rubrique <i class="fa fa-plus"></i>
+				</button>
+			</div>
+		</div>	
+			<p style="color:red;" style ="margin-left: 500px;">${errorChamp}</p>
+	
+
+	<% 
+		HttpSession s = request.getSession();
+   List<Rubrique> l;
+       l=(List <Rubrique>)s.getAttribute("listRubrique");
+		  int cmt=0;
+		%>
+	<script>
+
+
+var compt=0;
+
+function ajout(){
+var i=0;
+compt++;
+var tab= new Array();
+tab[0]="Faites votre choix";
+<% 
+cmt++;
+for(Rubrique r:l)
+{
+	System.out.println("byazhdjazvjdzad"+cmt);%>
+	i++;
+	tab[i]='<%= r.getNomRubrique()%>';
+	<%
+}
+s.setAttribute("UHU",cmt);
+
+%>
+
+
+console.log(tab[0]);
+console.log("aaaaa"+compt);
+var page = document.getElementById("idPage");
+var newlab=document.createElement("Label");
+newlab.innerText="Selectionner une rubrique";
+page.appendChild(newlab);
+
+document.getElementById("idPage").innerHTML+='<br>';
+
+		var elSelect = document.createElement("select");
+		elSelect.classList.add("form-control");
+		elSelect.style.width="50%";
+		elSelect.name = "selectMaster"+compt;
+		page.appendChild(elSelect);	
+		var elOption = new Array();
+		for(i=0;i<tab.length;i++)
+		{
+			console.log(tab[i]);
+          elOption.push(  new Option(tab[i], ""+tab[i], false, false));
+		}
+		
+		for (i=0;i<elOption.length;i++)
+        {
+          elSelect.appendChild(elOption[i]);
+        }
+		document.getElementById("idPage").innerHTML+='<br>';
+		var newlab=document.createElement("Label");
+		newlab.innerText="Ajouter une rubrique";
+		page.appendChild(newlab);
+		 document.getElementById("idPage").innerHTML+='<br>';
+        var Q = document.createElement("input");
+        Q.classList.add("form-control");
+        Q.style.width="50%";
+		Q.name = "nomRubrique"+compt;
+		page.appendChild(Q);	
+
+       
+} 
+
+</script>
+			</div>
+		</div>
+	
+	
 
 	</div>
 	</div>
 	</div>
+	
 
 
 	</div>
+	
 	<!-- start: MAIN JAVASCRIPTS -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>

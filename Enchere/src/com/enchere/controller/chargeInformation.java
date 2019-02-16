@@ -47,7 +47,7 @@ public class chargeInformation extends HttpServlet {
 	}
 	session.setAttribute("listFils", listFils);
 	
-	for (Rubrique r : listRubrique) {
+	/*for (Rubrique r : listRubrique) {
 		if((r.getMasterRubrique())==null) {
 		  System.out.println(r.getNomRubrique()+"master");	
 		}
@@ -55,7 +55,7 @@ public class chargeInformation extends HttpServlet {
 		{
 			  System.out.println(r.getNomRubrique()+"fils de"+(r.getMasterRubrique()).getNomRubrique());
 		}
-	}
+	}*/
 	response.sendRedirect("JSP/index.jsp");
 	
 

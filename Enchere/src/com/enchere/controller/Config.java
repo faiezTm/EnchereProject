@@ -23,14 +23,14 @@ import com.enchere.entities.Rubrique;
  * Servlet implementation class TestRubrique
  */
 @WebServlet("/TestRubrique")
-public class TestRubrique extends HttpServlet {
+public class Config extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public static int comptRubrique = 0;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public TestRubrique() {
+	public Config() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -94,7 +94,7 @@ public class TestRubrique extends HttpServlet {
 			 session.setAttribute("reglementsDestVendeurs", request.getParameter("reglementsDestVendeurs"));
 			 session.setAttribute("reglementsAcheteurs",request.getParameter("reglementsAcheteurs"));
 			 session.setAttribute("errorChamp","il aux saisir tous les champs");
-			 response.sendRedirect("JSP/Configuration.jsp");
+			 response.sendRedirect("JSP/ConfigFile.jsp");
 		}
 		else
 		{

@@ -61,6 +61,7 @@ List <ConfigurationSite> listConfig=ConfigDao.getConfig();
 session.setAttribute("listConfig",listConfig);
 
 %>
+
 	<div id="app">
 		<!-- sidebar -->
 		<div class="sidebar app-aside" id="sidebar">
@@ -86,42 +87,8 @@ session.setAttribute("listConfig",listConfig);
 					<span>Main Navigation</span>
 				</div>
 
-				<form class="form-login" action="../Authentification" method="post">
-					<fieldset>
 
-						<p>Please enter your name and password to log in.</p>
-						<div class="form-group">
-							<span class="input-icon"> <input type="text"
-								class="form-control" name="login" placeholder="Username">
-								<i class="fa fa-user"></i>
-							</span>
-						</div>
-						<div class="form-group form-actions">
-						
-							<span class="input-icon"> <input type="password"
-								class="form-control password" name="password"
-								placeholder="Password"> <i class="fa fa-lock"></i> <a
-								class="forgot" href="login_forgot.html"> I forgot my
-									password </a>
-							</span>
-						</div>
-						<div class="form-actions">
-
-							<button type="submit" class="btn btn-primary pull-right">
-								Login <i class="fa fa-arrow-circle-right"></i>
-							</button>
-							<p Style="color:red"> ${ message } </p>
-						</div>
-						<br>
-						<br>
-						<div class="new-account">
-							Don't have an account yet? <a href="login_registration.html">
-								Create an account </a>
-						</div>
-					</fieldset>
-				</form>
- 
-				<ul class="main-navigation-menu">
+	<ul class="main-navigation-menu">
 					<div class="navbar-title item-media ">
 						<span style="color: #007AFF;"><b style="font-size: 15px">Catégorie</b></span>
 					</div>
@@ -185,7 +152,6 @@ session.setAttribute("listConfig",listConfig);
 					
 					</c:forEach>
 
-						
 				</nav>
 			</div>
 		</div>
@@ -221,8 +187,8 @@ session.setAttribute("listConfig",listConfig);
 					</a></li>
 
 
-					<li class="dropdown"><a href="Inscription.jsp"  class="dropdown-toggle"
-						> <i class="ti-key"></i> <span>S'INSCRIRE</span>
+					<li class="dropdown"><a href class="dropdown-toggle"
+						data-toggle="dropdown"> <i class="ti-key"></i> <span>S'INSCRIRE</span>
 					</a></li>
 					<!-- start: MESSAGES DROPDOWN -->
 					<li class="dropdown"><a href class="dropdown-toggle"

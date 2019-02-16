@@ -27,7 +27,7 @@ public static void insertMembre(Membre membre) {
 		tnx.commit();
 		session.close();
 		}
-public static boolean authentification(String login,String motDePasse) {
+public static Utilisateur authentification(String login,String motDePasse) {
 	List<Utilisateur> listU = new ArrayList<Utilisateur>();
 	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 	Session session = sessionFactory.openSession();
@@ -37,12 +37,13 @@ public static boolean authentification(String login,String motDePasse) {
 	listU = query.list();
 	for (Utilisateur u : listU) {
 		if (u.getLogin().equals(login) && u.getMotDePasse().equals(motDePasse)) {
-			return true;
+			return u;
 		}
 	}
+	Utilisateur uNull=null;
 	tnx.commit();
 	session.close();
-	return false;
+	return uNull;
 	}
 
 

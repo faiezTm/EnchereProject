@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.enchere.dao.UtilisateurDao;
+import com.enchere.entities.Utilisateur;
 
 /**
  * Servlet implementation class Authentification
@@ -36,18 +37,30 @@ public class Authentification extends HttpServlet {
 		HttpSession session = request.getSession();
 		String login=request.getParameter("login");
 		String MotDePasse=request.getParameter("password");
-		
-	boolean authentification=UtilisateurDao.authentification(login, MotDePasse);
-	System.out.println(authentification);
-	if(authentification) {
+		Utilisateur authentificationUser=UtilisateurDao.authentification(login, MotDePasse);
 		session.removeAttribute("message");
-	response.sendRedirect("JSP/Bienvenue.jsp");
+	if(authentificationUser!=null) {
+		session.removeAttribute("message");
+		if(authentificationUser.getRole().equals("membre"))
+		{
+	 response.sendRedirect("JSP/BienvenueMembre.jsp");
+	 System.out.println(authentificationUser.getRole());
+		}
+		else
+		{
+			 System.out.println(authentificationUser.getRole());
+		//	response.sendRedirect("JSP/BienvenueMembre.jsp");
+		response.sendRedirect("JSP/BienvenueCommisseurVue.jsp");
+		}
+			
 	}
-	else
-	{ String message ="login ou pwd incorrect";
-	session.setAttribute("message", message);
+	else if(authentificationUser==null)
+	{
+		String message ="login ou pwd incorrect";
+	    session.setAttribute("message", message);
 		response.sendRedirect("JSP/index.jsp");
 	}
+		
 		
 	}
 

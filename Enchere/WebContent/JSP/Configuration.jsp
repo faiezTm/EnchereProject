@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.*, java.net.*"%>
 <%@ page import="com.enchere.entities.Rubrique"%>
-<%@ page import="com.enchere.controller.TestRubrique"%>
+<%@ page import="com.enchere.controller.Config"%>
 <%@ page import="com.enchere.dao.RubriqueDao"%>
 
 

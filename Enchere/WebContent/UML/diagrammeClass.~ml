@@ -1715,7 +1715,6 @@
 <XPD:OBJ name="Attributes[5]" type="UMLAttribute" guid="qdMPXDpEy0SmRNimmOa+MgAA">
 <XPD:ATTR name="Name" type="string">numCarteCredit</XPD:ATTR>
 <XPD:ATTR name="Visibility" type="UMLVisibilityKind">vkPrivate</XPD:ATTR>
-<XPD:ATTR name="TypeExpression" type="string">Integer</XPD:ATTR>
 <XPD:REF name="Owner">68MthlUM4kK3CEqWNRvmDwAA</XPD:REF>
 </XPD:OBJ>
 <XPD:OBJ name="Attributes[6]" type="UMLAttribute" guid="UZWPDrMJw0+Ahoe+LtrzEQAA">

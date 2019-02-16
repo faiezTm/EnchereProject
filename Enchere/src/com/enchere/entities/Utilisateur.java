@@ -15,6 +15,7 @@ public class Utilisateur {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE,generator="id_seq")
 	@SequenceGenerator(name="id_seq",sequenceName="id_seq", allocationSize=1)
 	protected int idUtilisateur;
+	
 	protected String nom;
 	protected String prenom;
 	protected String email;
@@ -24,8 +25,15 @@ public class Utilisateur {
 	protected String login;
 	protected String motDePasse;
 	protected byte[] photo;
+	protected String role;
 	
 	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
 	public int getIdUtilisateur() {
 		return idUtilisateur;
 	}
@@ -99,6 +107,7 @@ public class Utilisateur {
 		this.login = login;
 		this.motDePasse = motDePasse;
 		this.photo = photo;
+		this.role="membre";
 	}
 	public Utilisateur() {
 		super();
