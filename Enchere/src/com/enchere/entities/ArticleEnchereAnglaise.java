@@ -20,9 +20,9 @@ public class ArticleEnchereAnglaise extends Article{
 	}
 	public ArticleEnchereAnglaise(String descrption, Date dateDebut, Date dateFin, double prixInit, String lieu,
 			String pays, String region, double prixReserve, Blob photo, boolean visibiliteReserve,
-			String definitionArt, String typeEnchere, double incrementValue) {
+			String definitionArt, String typeEnchere, double incrementValue, boolean aLaUne,int idUtilisateur,int idRubrique) {
 		super(descrption, dateDebut, dateFin, prixInit, lieu, pays, region, prixReserve, photo, visibiliteReserve,
-				definitionArt, typeEnchere);
+				definitionArt, typeEnchere,aLaUne,idUtilisateur,idRubrique);
 		this.incrementValue = incrementValue;
 	}
 	

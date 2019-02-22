@@ -9,7 +9,6 @@ import java.util.List;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,25 +19,25 @@ import javax.sql.rowset.serial.SerialBlob;
 import org.apache.tomcat.util.codec.binary.Base64;
 
 import com.enchere.dao.ArticleDao;
-import com.enchere.entities.Article;
 import com.enchere.entities.ArticleEnchereAnglaise;
 import com.enchere.entities.ArticleEnchereHollandaise;
+
 /**
- * Servlet implementation class Add
+ * Servlet implementation class EditArticle
  */
-@WebServlet("/AddArticle")
-@MultipartConfig(maxFileSize = 1000*1024*1024,maxRequestSize = 2000*1024*1024,fileSizeThreshold = 20*1024*1024)
-public class AddArticle extends HttpServlet {
+@WebServlet("/EditArticle")
+public class EditArticle extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public AddArticle() {
+    public EditArticle() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		ServletContext application = getServletContext();
 		HttpSession session = request.getSession();
 
@@ -46,7 +45,7 @@ public class AddArticle extends HttpServlet {
 		String descrption = request.getParameter("description");
 		int idUtilisateur = Integer.parseInt(request.getParameter("idUtilisateur"));
 		int idRubrique = Integer.parseInt(request.getParameter("idRubrique"));
-
+		int idArticle = Integer.parseInt(request.getParameter("idArticle"));
 		String dateDebutString = request.getParameter("dateDebut");
 		String dateFinString = request.getParameter("dateFin");
 		
@@ -96,12 +95,12 @@ public class AddArticle extends HttpServlet {
 		if (typeEnchere.equals("anglaise")) {
 			double incrementValue = Double.valueOf(request.getParameter("incrementValue"));
 			ArticleEnchereAnglaise newArticleEnchereAnglaise = new ArticleEnchereAnglaise(descrption, dateDebut, dateFin, prixInit, lieu, pays, region, prixReserve, photo, visibiliteReserve, definitionArt, typeEnchere, incrementValue,aLaUne,idUtilisateur,idRubrique);
-			ArticleDao.insertArticleEnchereAnglaise(newArticleEnchereAnglaise);
+			ArticleDao.editArticleEnchereAnglaise(newArticleEnchereAnglaise, idArticle);
 		}
 		else if (typeEnchere.equals("hollandaise")) {
 			int qteArticle = Integer.valueOf(request.getParameter("qteArticle"));
 			ArticleEnchereHollandaise newArticleEnchereHollandaise = new ArticleEnchereHollandaise(descrption, dateDebut, dateFin, prixInit, lieu, pays, region, prixReserve, photo, visibiliteReserve, definitionArt, typeEnchere, qteArticle,aLaUne,idUtilisateur,idRubrique);
-			ArticleDao.insertArticleEnchereHollandaise(newArticleEnchereHollandaise);
+			ArticleDao.editArticleEnchereHollandaise(newArticleEnchereHollandaise,idArticle);
 		}
 		
 		response.sendRedirect("JSP/Vendre.jsp");

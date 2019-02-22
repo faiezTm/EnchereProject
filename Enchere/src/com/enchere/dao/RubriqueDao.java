@@ -10,10 +10,12 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import com.enchere.entities.Rubrique;
+import com.enchere.entities.Utilisateur;
 
 
 public class RubriqueDao {
-	
+	public static SessionFactory sessionFactory  = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+
 public static void insertRubrqiue(Rubrique newRubrique,int idMaster) {
 		
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
@@ -35,14 +37,28 @@ public static void insertRubrqiue(Rubrique newRubrique,int idMaster) {
 
 public static List getRubriques() {
 	List<Rubrique> listRubrique= new ArrayList<Rubrique>();
-	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
-	Session session = sessionFactory.openSession();
+	if(sessionFactory==null)
+		sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+		Session session = sessionFactory.openSession();
 	Transaction tnx = session.beginTransaction();
 	Query query =session.createQuery("FROM Rubrique");
 	 listRubrique = query.list();
 	tnx.commit();
 	session.close();
 	return listRubrique;
+	}
+	
+	public static Rubrique getRubriqueById(int idRubrique) {
+		if(sessionFactory==null)
+			sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+			Session session = sessionFactory.openSession();
+			Transaction tnx = session.beginTransaction();
+			List<Rubrique> listU = new ArrayList<Rubrique>();
+			Query query = session.createQuery("From Rubrique where idRubrique = '"+idRubrique+"'");
+			listU = query.list();
+			tnx.commit();
+			session.close();
+			return listU.get(0);
 	}
 
 }

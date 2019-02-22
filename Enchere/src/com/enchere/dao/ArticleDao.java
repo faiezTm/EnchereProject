@@ -26,6 +26,31 @@ public static void insertArticleEnchereAnglaise(ArticleEnchereAnglaise newArticl
 		session.close();
 		}
 
+public static void editArticleEnchereAnglaise(ArticleEnchereAnglaise newArticleEnchereAnglaise, int idArticle) {
+	
+	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+	Session session = sessionFactory.openSession();
+	Transaction tnx = session.beginTransaction();
+	newArticleEnchereAnglaise.setIdArticle(idArticle);
+	session.update(newArticleEnchereAnglaise);
+	tnx.commit();
+	session.close();
+	
+}
+
+public static void deleteArticleEnchereAnglaise(int idArticle) {
+	
+	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+	Session session = sessionFactory.openSession();
+	Transaction tnx = session.beginTransaction();
+	ArticleEnchereAnglaise deletedArticle = new ArticleEnchereAnglaise();
+	deletedArticle.setIdArticle(idArticle);
+	session.delete(deletedArticle);
+	tnx.commit();
+	session.close();
+	
+}
+
 public static void insertArticleEnchereHollandaise(ArticleEnchereHollandaise newArticleEnchereHollandaise) {
 	
 	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
@@ -37,12 +62,37 @@ public static void insertArticleEnchereHollandaise(ArticleEnchereHollandaise new
 	
 }
 
-public static List<ArticleEnchereAnglaise> getAllArticlesEnchereAnglaise(){
+public static void editArticleEnchereHollandaise(ArticleEnchereHollandaise newArticleEnchereHollandaise, int idArticle) {
+	
+	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+	Session session = sessionFactory.openSession();
+	Transaction tnx = session.beginTransaction();
+	newArticleEnchereHollandaise.setIdArticle(idArticle);
+	session.update(newArticleEnchereHollandaise);
+	tnx.commit();
+	session.close();
+	
+}
+
+public static void deleteArticleEnchereHollandaise(int idArticle) {
+	
+	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+	Session session = sessionFactory.openSession();
+	Transaction tnx = session.beginTransaction();
+	ArticleEnchereHollandaise deletedArticle = new ArticleEnchereHollandaise();
+	deletedArticle.setIdArticle(idArticle);
+	session.delete(deletedArticle);
+	tnx.commit();
+	session.close();
+	
+}
+
+public static List<ArticleEnchereAnglaise> getAllArticlesEnchereAnglaiseByUser(int idUtilisateur){
 	try {
 		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tnx = session.beginTransaction();
-		Query queryArticleEnchereAnglaise = session.createQuery("From ArticleEnchereAnglaise");
+		Query queryArticleEnchereAnglaise = session.createQuery("From ArticleEnchereAnglaise where UTILISATEUR_IDUTILISATEUR = '"+idUtilisateur+"'");
 		List<ArticleEnchereAnglaise> listArticleEnchereAnglaise = queryArticleEnchereAnglaise.list();
 		return listArticleEnchereAnglaise;
 	}
@@ -51,12 +101,12 @@ public static List<ArticleEnchereAnglaise> getAllArticlesEnchereAnglaise(){
 	}
 }
 
-public static List<ArticleEnchereHollandaise> getAllArticlesEnchereHollandaise(){
+public static List<ArticleEnchereHollandaise> getAllArticlesEnchereHollandaiseByUser(int idUtilisateur){
 	try {
 	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 	Session session = sessionFactory.openSession();
 	Transaction tnx = session.beginTransaction();
-	Query queryArticleEnchereHollandaise = session.createQuery("From ArticleEnchereHollandaise");
+	Query queryArticleEnchereHollandaise = session.createQuery("From ArticleEnchereHollandaise where UTILISATEUR_IDUTILISATEUR = '"+idUtilisateur+"'");
 	List<ArticleEnchereHollandaise> listArticleEnchereHollandaise = queryArticleEnchereHollandaise.list();
 	return listArticleEnchereHollandaise;
 }

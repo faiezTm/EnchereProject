@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -13,7 +14,11 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
+
+import com.enchere.dao.RubriqueDao;
+import com.enchere.dao.UtilisateurDao;
 
 @Entity
 @Inheritance(strategy=InheritanceType.JOINED)
@@ -31,12 +36,37 @@ public class Article {
 	protected String pays;
 	protected String region;
 	protected double prixReserve;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	protected Utilisateur utilisateur;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	protected Rubrique rubrique;
+	
 	@Lob
 	protected Blob photo;
-	
 	protected boolean visibiliteReserve;
 	protected String definitionArt;
 	protected String typeEnchere;
+	protected boolean aLaUne;
+	public boolean isaLaUne() {
+		return aLaUne;
+	}
+
+	public void setaLaUne(boolean aLaUne) {
+		this.aLaUne = aLaUne;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
+	public Rubrique getRubrique() {
+		return rubrique;
+	}
+	public void setRubrique(Rubrique rubrique) {
+		this.rubrique = rubrique;
+	}
 	
 	public int getIdArticle() {
 		return idArticle;
@@ -120,7 +150,7 @@ public class Article {
 	}
 	public Article(String descrption, Date dateDebut, Date dateFin, double prixInit, String lieu,
 			String pays, String region, double prixReserve, Blob photo, boolean visibiliteReserve,
-			String definitionArt, String typeEnchere) {
+			String definitionArt, String typeEnchere,boolean aLaUne,int idUtilisateur,int idRubrique) {
 		super();
 		this.idArticle = idArticle;
 		this.description = descrption;
@@ -135,6 +165,9 @@ public class Article {
 		this.visibiliteReserve = visibiliteReserve;
 		this.definitionArt = definitionArt;
 		this.typeEnchere = typeEnchere;
+		this.aLaUne = aLaUne;
+		this.utilisateur = UtilisateurDao.getUtilisateurById(idUtilisateur);
+		this.rubrique = RubriqueDao.getRubriqueById(idRubrique);
 	}
 	
 	public Article() {

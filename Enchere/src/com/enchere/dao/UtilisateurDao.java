@@ -18,9 +18,11 @@ import com.enchere.entities.Utilisateur;
 
 
 public class UtilisateurDao {
+	public static SessionFactory sessionFactory  = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 public static void insertMembre(Membre membre) {
 		
-		SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+		if(sessionFactory==null)
+		sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 		Session session = sessionFactory.openSession();
 		Transaction tnx = session.beginTransaction();
 		session.save(membre);
@@ -29,7 +31,8 @@ public static void insertMembre(Membre membre) {
 		}
 public static Utilisateur authentification(String login,String motDePasse) {
 	List<Utilisateur> listU = new ArrayList<Utilisateur>();
-	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+	if(sessionFactory==null)
+	sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
 	Session session = sessionFactory.openSession();
 	Transaction tnx = session.beginTransaction();
 	String hql = "FROM Utilisateur";
@@ -44,6 +47,19 @@ public static Utilisateur authentification(String login,String motDePasse) {
 	tnx.commit();
 	session.close();
 	return uNull;
+	}
+	
+	public static Utilisateur getUtilisateurById(int idUtilisateur) {
+	if(sessionFactory==null)
+	sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+	Session session = sessionFactory.openSession();
+	Transaction tnx = session.beginTransaction();
+	List<Utilisateur> listU = new ArrayList<Utilisateur>();
+	Query query = session.createQuery("From Utilisateur where idUtilisateur = '"+idUtilisateur+"'");
+	listU = query.list();
+	tnx.commit();
+	session.close();
+	return listU.get(0);
 	}
 
 

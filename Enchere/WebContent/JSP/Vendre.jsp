@@ -1,3 +1,4 @@
+<%@page import="com.enchere.entities.ArticleEnchereAnglaise"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
@@ -9,7 +10,14 @@
 <%@ page import="com.enchere.dao.ArticleDao" %>
 <%@ page import="com.enchere.entities.ArticleEnchereHollandaise" %>
 <%@ page import="java.sql.SQLException" %>
-
+<%@ page import="java.util.Date" %>
+ <%@ page import="java.util.*, java.net.*"%>
+ <%@ page import="com.enchere.dao.ConfigDao"%>
+ <%@ page import="com.enchere.entities.ConfigurationSite"%>
+ <%@ page import="com.enchere.entities.Rubrique"%>
+ <%@ page import="com.enchere.dao.RubriqueDao"%>
+ <%@ page import="com.enchere.entities.Utilisateur"%>
+ 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -62,6 +70,27 @@
 <!-- end: CSS REQUIRED FOR THIS PAGE ONLY -->
 </head>
 <body>
+<%
+try
+{
+	List <Rubrique> listRubrique=	RubriqueDao.getRubriques();
+	List <Rubrique> listFils= new ArrayList<Rubrique>();
+	session.setAttribute("listRubrique", listRubrique);
+	for (Rubrique rubrique : listRubrique) {
+		if (rubrique.getMasterRubrique()!=null)
+			listFils.add(rubrique);
+		
+	}
+	session.setAttribute("listFils", listFils);
+
+	List <ConfigurationSite> listConfig=ConfigDao.getConfig();
+	session.setAttribute("listConfig",listConfig);
+}
+catch(Exception e){
+	
+}
+
+%>
 	<div id="app">
 		<!-- sidebar -->
 		<div class="sidebar app-aside" id="sidebar">
@@ -86,24 +115,32 @@
 				<div class="navbar-title">
 					<span>Main Navigation</span>
 				</div>
-
-				
+ 
 				<ul class="main-navigation-menu">
 					<div class="navbar-title item-media ">
 						<span style="color: #007AFF;"><b style="font-size: 15px">Catégorie</b></span>
 					</div>
-					<li><a href="javascript:void(0)">
+	
+					
+					<li><c:forEach var="Rubrique" items="${ listRubrique }" varStatus="loop">
+					<c:if test="${ Rubrique.getMasterRubrique() == null }">
+					<a href="javascript:void(0)">
 							<div class="item-content">
 								<div class="item-media">
 									<i class="ti-menu-alt"></i>
 								</div>
+												
 								<div class="item-inner">
-									<span class="title"> Categorie_1 </span><i class="icon-arrow"></i>
+									<span class="title">${ Rubrique.getNomRubrique() } </span><i class="icon-arrow"></i>
 								</div>
 							</div>
 					</a>
-						<ul class="sub-menu">
-							<li><a href="javascript:;"> <span>Item 1</span> <i
+					<ul class="sub-menu">
+					<c:forEach var="Rubrique2" items="${ listFils }" varStatus="loop">
+					<c:if test="${ Rubrique2.getMasterRubrique().getIdRubrique() ==Rubrique.getIdRubrique()  }">
+							
+						
+									<li><a href="javascript:;"> <span>${ Rubrique2.getNomRubrique() } </span> <i
 									class="icon-arrow"></i>
 							</a>
 								<ul class="sub-menu">
@@ -132,68 +169,18 @@
 											<li><a href="#"> Sample Link 3 </a></li>
 										</ul></li>
 								</ul></li>
-							<li><a href="javascript:;"> <span>Item 2</span> <i
-									class="icon-arrow"></i>
 							</a>
-								<ul class="sub-menu">
-									<li><a href="javascript:;"> <span>Sample Link 1</span>
-											<i class="icon-arrow"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#"> Sample Link 1 </a></li>
-											<li><a href="#"> Sample Link 2 </a></li>
-											<li><a href="#"> Sample Link 3 </a></li>
-										</ul></li>
-									<li><a href="javascript:;"> <span>Sample Link 2</span>
-											<i class="icon-arrow"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#"> Sample Link 1 </a></li>
-											<li><a href="#"> Sample Link 2 </a></li>
-											<li><a href="#"> Sample Link 3 </a></li>
-										</ul></li>
-									<li><a href="javascript:;"> <span>Sample Link 3</span>
-											<i class="icon-arrow"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#"> Sample Link 1 </a></li>
-											<li><a href="#"> Sample Link 2 </a></li>
-											<li><a href="#"> Sample Link 3 </a></li>
-										</ul></li>
-								</ul></li>
-							<li><a href="javascript:;"> <span>Item 3</span> <i
-									class="icon-arrow"></i>
-							</a>
-								<ul class="sub-menu">
-									<li><a href="javascript:;"> <span>Sample Link 1</span>
-											<i class="icon-arrow"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#"> Sample Link 1 </a></li>
-											<li><a href="#"> Sample Link 2 </a></li>
-											<li><a href="#"> Sample Link 3 </a></li>
-										</ul></li>
-									<li><a href="javascript:;"> <span>Sample Link 2</span>
-											<i class="icon-arrow"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#"> Sample Link 1 </a></li>
-											<li><a href="#"> Sample Link 2 </a></li>
-											<li><a href="#"> Sample Link 3 </a></li>
-										</ul></li>
-									<li><a href="javascript:;"> <span>Sample Link 3</span>
-											<i class="icon-arrow"></i>
-									</a>
-										<ul class="sub-menu">
-											<li><a href="#"> Sample Link 1 </a></li>
-											<li><a href="#"> Sample Link 2 </a></li>
-											<li><a href="#"> Sample Link 3 </a></li>
-										</ul></li>
-								</ul></li>
-						</ul></li>
+							
+							</c:if>
+					</c:forEach>
+					</ul>
+	
+	</c:if>
+					
+					
+					</c:forEach>
 
-
-				</ul>
+						
 				</nav>
 			</div>
 		</div>
@@ -210,7 +197,7 @@
 					class="ti-align-justify"></i>
 				</a> <a class="navbar-brand" href="#">
 
-					<h3 style="margin-top: 15px;">Tunisie Enchere</h3>
+					<h3 style="margin-top: 15px;">${ (listConfig[0]).getNomSite() }</h3>
 				</a> <a class="pull-right menu-toggler visible-xs-block"
 					id="menu-toggler" data-toggle="collapse" href=".navbar-collapse">
 					<span class="sr-only">Toggle navigation</span> <i
@@ -220,10 +207,15 @@
 			<!-- end: NAVBAR HEADER --> <!-- start: NAVBAR COLLAPSE -->
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-right">
-					<li class="dropdown"><a href class="dropdown-toggle"
-						data-toggle="dropdown"> <i class="ti-home"></i> <span>ACCUEIl</span>
+					<c:if test="${authentificationUser.role == Commisseur}">
+						<li class="dropdown"> <a href="ConfigFile.jsp" class="dropdown-toggle" > 
+						<i class="ti-settings"></i><span>Configuration Site</span></a></li>
+					</c:if>
+					
+					<li class="dropdown"><a href="index.jsp" class="dropdown-toggle">
+					 <i class="ti-home"></i> <span>ACCUEIl</span>
 					</a></li>
-
+															
 					<li class="dropdown"><a href class="dropdown-toggle"
 						data-toggle="dropdown"> <i class="ti-package"></i> <span>VENDRE</span>
 					</a></li>
@@ -250,7 +242,6 @@
 			<!-- end: TOP NAVBAR -->
 			<div class="main-content">
 						
-			<input id="demo4" type="text" value="0" name="demo4" touchspin data-verticalbuttons="true" data-verticalupclass="ti-angle-up" data-verticaldownclass="ti-angle-down">			
 						<!-- start: DYNAMIC TABLE -->
 						<div class="container-fluid container-fullw">
 							<div class="row">
@@ -264,7 +255,7 @@
 										</div>
 									</div>
 									<div class="table-responsive">
-										<table class="table table-striped table-hover" id="articleEnchereAnglaise">
+										<table class="table table-striped table-hover" id="articleEnchereAnglaise" data-id="${sessionScope.User.idUtilisateur}">
 											<thead>
 												<tr>
 													<th style="margin: 0px; width: 40px; height: 40px;">Description</th>
@@ -277,42 +268,57 @@
 													<th>Photo</th>
 													<th>Visibilité reserve</th>
 													<th>increment value</th>
-													<th>Date Debut</th>
+													<th style='width:200px;'>Date Debut</th>
 													<th>Date Fin</th>
+													<th>A la une</th>
+													<th>Categorie</th>
 													<th>Edit</th>
 													<th>Delete</th>
 											</tr>
 											</thead>
 											<tbody>
-												<c:forEach var="article" items="${listArticleEnchereAnglaise}">
-													<c:url var="loadUserLink" value="">
-														<c:param name = "id" value="0"/>
-													</c:url>
-													<tr>
-														<td>${article.description} </td>
-														
-														<td>${article.definitionArt} </td>
-														<td>${article.prixInit}</td>
-														<td>${article.prixReserve}</td>
-														<td>${article.pays}</td>
-														<td>${article.lieu}</td>
-														<td>${article.region}</td>
-														<td>${article.photo}</td>
-														<c:if test="${article.visibiliteReserve== true}">
-														<td>Visible</td>
-														</c:if>
-														<c:if test="${article.visibiliteReserve == false}">
-														<td>Non Visible</td>
-														</c:if>
-														
-														<td>${article.incrementValue}</td>
-														<td>${article.dateDebut}</td>
-														<td>${article.dateFin}</td>
-														<td> <a href="#" class="edit-row">Edit</a> </td>
-														<td> <a href="#" class="delete-row">Delete</a> </td>
-													</tr>
+											<%
+											try
+											{
+											byte[] img = null;
+											Blob b = null;
+											HttpSession sessionid = request.getSession();
+											Utilisateur utilisateur = (Utilisateur)sessionid.getAttribute("User");
+											List<ArticleEnchereAnglaise> listArticleEnchereAnglaise = ArticleDao.getAllArticlesEnchereAnglaiseByUser(utilisateur.getIdUtilisateur());
+											for (ArticleEnchereAnglaise articleEnchereAnglaise : listArticleEnchereAnglaise) {
+												try {
+													b = articleEnchereAnglaise.getPhoto();
+													int blobLength = (int) b.length();
+													img = b.getBytes(1,blobLength);
+										            String base64Encoded = new String(Base64.decodeBase64(img));
+										            out.println("<tr data-id='"+articleEnchereAnglaise.getIdArticle()+"'><td>"+articleEnchereAnglaise.getDescription()+"</td>"+"<td>"+articleEnchereAnglaise.getDefinitionArt()+"</td>"+"<td>"+articleEnchereAnglaise.getPrixInit()+"</td>"+"<td>"+articleEnchereAnglaise.getPrixReserve()+"</td>"+"<td>"+articleEnchereAnglaise.getPays()+"</td>"+"<td>"+articleEnchereAnglaise.getLieu()+"</td>"+"<td>"+articleEnchereAnglaise.getRegion()+"</td>"+"<td><img src='"+base64Encoded+"' style= 'width:200px;height:200px;'/></td>");
+													if(articleEnchereAnglaise.isVisibiliteReserve() == true){
+														out.println("<td>Visible</td>");
+													}
+													else
+														out.println("<td>Non Visible</td>");
+													String dateDebutF = articleEnchereAnglaise.getDateDebut().getDay()+"-"+articleEnchereAnglaise.getDateDebut().getMonth()+"-"+articleEnchereAnglaise.getDateDebut().getYear()+" "+articleEnchereAnglaise.getDateDebut().getHours()+" : "+articleEnchereAnglaise.getDateDebut().getMinutes();
 													
-												</c:forEach>
+													String dateFinF = articleEnchereAnglaise.getDateFin().getDay()+"-"+articleEnchereAnglaise.getDateFin().getMonth()+"-"+articleEnchereAnglaise.getDateFin().getYear()+" "+articleEnchereAnglaise.getDateFin().getHours()+" : "+articleEnchereAnglaise.getDateFin().getMinutes();
+													out.println("<td>"+articleEnchereAnglaise.getIncrementValue()+"</td>"+"<td style='width:200px;'>"+dateDebutF+"</td>"+"<td style='width:200px;'>"+dateFinF+"</td>");
+													if(articleEnchereAnglaise.isaLaUne() == true){
+														out.println("<td>Oui</td>");
+													}
+													else
+														out.println("<td>Non</td>");
+													
+													out.println("<td>"+articleEnchereAnglaise.getRubrique().getNomRubrique()+"<td> <a href='#' class='edit-articleEnchereAnglaise'>Edit</a> </td><td> <a href='#' class='delete-articleEnchereAnglaise'>Delete</a> </td></tr>");
+												} catch (SQLException e) {
+													
+													e.printStackTrace();
+												}
+											}
+											}
+											catch(Exception e){
+												
+											}
+											%>
+										
 											</tbody>
 										</table>
 									</div>
@@ -333,7 +339,7 @@
 									</div>
 									
 									<div class="table-responsive">
-										<table class="table table-striped table-hover" id="articleEnchereHollandaise">
+										<table class="table table-striped table-hover" id="articleEnchereHollandaise" data-id="${sessionScope.User.idUtilisateur}">
 											<thead>
 												<tr>
 													<th style="margin: 0px; width: 40px; height: 40px;">Description</th>
@@ -346,34 +352,54 @@
 													<th>Photo</th>
 													<th>Visibilité reserve</th>
 													<th>Quantité</th>
-													<th>Date Debut</th>
+													<th style='width:200px;'>Date Debut</th>
 													<th>Date Fin</th>
+													<th>A la une</th>
+													<th>Categorie</th>
 													<th>Edit</th>
 													<th>Delete</th>
 											</tr>
 											</thead>
 											<tbody>
 											<%
+											try
+											{
 											byte[] img = null;
 											Blob b = null;
-											List<ArticleEnchereHollandaise> listArticleEnchereHollandaise = ArticleDao.getAllArticlesEnchereHollandaise();
+											HttpSession sessionid = request.getSession();
+											Utilisateur utilisateur = (Utilisateur)sessionid.getAttribute("User");
+											List<ArticleEnchereHollandaise> listArticleEnchereHollandaise = ArticleDao.getAllArticlesEnchereHollandaiseByUser(utilisateur.getIdUtilisateur());
 											for (ArticleEnchereHollandaise articleEnchereHollandaise : listArticleEnchereHollandaise) {
 												try {
 													b = articleEnchereHollandaise.getPhoto();
 													int blobLength = (int) b.length();
 													img = b.getBytes(1,blobLength);
 										            String base64Encoded = new String(Base64.decodeBase64(img));
-										            out.println("<tr><td>"+articleEnchereHollandaise.getDescription()+"</td>"+"<td>"+articleEnchereHollandaise.getDefinitionArt()+"</td>"+"<td>"+articleEnchereHollandaise.getPrixInit()+"</td>"+"<td>"+articleEnchereHollandaise.getPrixReserve()+"</td>"+"<td>"+articleEnchereHollandaise.getPays()+"</td>"+"<td>"+articleEnchereHollandaise.getLieu()+"</td>"+"<td>"+articleEnchereHollandaise.getRegion()+"</td>"+"<td><img src='"+base64Encoded+"' style= 'width:200px;height:200px;'/></td>");
+										            out.println("<tr data-id='"+articleEnchereHollandaise.getIdArticle()+"'><td>"+articleEnchereHollandaise.getDescription()+"</td>"+"<td>"+articleEnchereHollandaise.getDefinitionArt()+"</td>"+"<td>"+articleEnchereHollandaise.getPrixInit()+"</td>"+"<td>"+articleEnchereHollandaise.getPrixReserve()+"</td>"+"<td>"+articleEnchereHollandaise.getPays()+"</td>"+"<td>"+articleEnchereHollandaise.getLieu()+"</td>"+"<td>"+articleEnchereHollandaise.getRegion()+"</td>"+"<td><img src='"+base64Encoded+"' style= 'width:200px;height:200px;'/></td>");
 													if(articleEnchereHollandaise.isVisibiliteReserve() == true){
 														out.println("<td>Visible</td>");
 													}
 													else
 														out.println("<td>Non Visible</td>");
-													out.println("<td>"+articleEnchereHollandaise.getQteArticle()+"</td>"+"<td>"+articleEnchereHollandaise.getDateDebut()+"</td>"+"<td>"+articleEnchereHollandaise.getDateFin()+"</td><td> <a href='#' class='editArticleEnchereHollandaise'>Edit</a> </td><td> <a href='#' class='delete-row'>Delete</a> </td></tr>");
+													String dateDebutF = articleEnchereHollandaise.getDateDebut().getDay()+"-"+articleEnchereHollandaise.getDateDebut().getMonth()+"-"+articleEnchereHollandaise.getDateDebut().getYear()+" "+articleEnchereHollandaise.getDateDebut().getHours()+" : "+articleEnchereHollandaise.getDateDebut().getMinutes();
+													
+													String dateFinF = articleEnchereHollandaise.getDateFin().getDay()+"-"+articleEnchereHollandaise.getDateFin().getMonth()+"-"+articleEnchereHollandaise.getDateFin().getYear()+" "+articleEnchereHollandaise.getDateFin().getHours()+" : "+articleEnchereHollandaise.getDateFin().getMinutes();
+													out.println("<td>"+articleEnchereHollandaise.getQteArticle()+"</td>"+"<td style='width:200px;'>"+dateDebutF+"</td>"+"<td style='width:200px;'>"+dateFinF+"</td>");
+													if(articleEnchereHollandaise.isaLaUne() == true){
+														out.println("<td>Oui</td>");
+													}
+													else
+														out.println("<td>Non</td>");
+													
+													out.println("<td>"+articleEnchereHollandaise.getRubrique().getNomRubrique()+"<td> <a href='#' class='edit-articleEnchereHollandaise'>Edit</a> </td><td> <a href='#' class='delete-articleEnchereHollandaise'>Delete</a> </td></tr>");
 												} catch (SQLException e) {
 													
 													e.printStackTrace();
 												}
+											}
+											}
+											catch(Exception e){
+												
 											}
 											%>
 										
