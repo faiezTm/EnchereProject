@@ -255,7 +255,7 @@ catch(Exception e){
 										</div>
 									</div>
 									<div class="table-responsive">
-										<table class="table table-striped table-hover" id="articleEnchereAnglaise" data-id="${sessionScope.User.idUtilisateur}">
+										<table class="table table-striped table-hover" id="articleEnchereAnglaise" data-id="${sessionScope.user.idUtilisateur}">
 											<thead>
 												<tr>
 													<th style="margin: 0px; width: 40px; height: 40px;">Description</th>
@@ -283,7 +283,7 @@ catch(Exception e){
 											byte[] img = null;
 											Blob b = null;
 											HttpSession sessionid = request.getSession();
-											Utilisateur utilisateur = (Utilisateur)sessionid.getAttribute("User");
+											Utilisateur utilisateur = (Utilisateur)sessionid.getAttribute("user");
 											List<ArticleEnchereAnglaise> listArticleEnchereAnglaise = ArticleDao.getAllArticlesEnchereAnglaiseByUser(utilisateur.getIdUtilisateur());
 											for (ArticleEnchereAnglaise articleEnchereAnglaise : listArticleEnchereAnglaise) {
 												try {
@@ -339,7 +339,7 @@ catch(Exception e){
 									</div>
 									
 									<div class="table-responsive">
-										<table class="table table-striped table-hover" id="articleEnchereHollandaise" data-id="${sessionScope.User.idUtilisateur}">
+										<table class="table table-striped table-hover" id="articleEnchereHollandaise" data-id="${sessionScope.user.idUtilisateur}">
 											<thead>
 												<tr>
 													<th style="margin: 0px; width: 40px; height: 40px;">Description</th>
@@ -367,7 +367,7 @@ catch(Exception e){
 											byte[] img = null;
 											Blob b = null;
 											HttpSession sessionid = request.getSession();
-											Utilisateur utilisateur = (Utilisateur)sessionid.getAttribute("User");
+											Utilisateur utilisateur = (Utilisateur)sessionid.getAttribute("user");
 											List<ArticleEnchereHollandaise> listArticleEnchereHollandaise = ArticleDao.getAllArticlesEnchereHollandaiseByUser(utilisateur.getIdUtilisateur());
 											for (ArticleEnchereHollandaise articleEnchereHollandaise : listArticleEnchereHollandaise) {
 												try {

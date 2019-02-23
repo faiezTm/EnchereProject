@@ -33,6 +33,7 @@ public class Authentification extends HttpServlet {
 	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String source =request.getHeader("referer");
 		ServletContext application = getServletContext();
 		HttpSession session = request.getSession();
 		String login=request.getParameter("login");
@@ -41,9 +42,11 @@ public class Authentification extends HttpServlet {
 		session.removeAttribute("message");
 	if(authentificationUser!=null) {
 		session.removeAttribute("message");
+		session.setAttribute("user",authentificationUser );
 		if(authentificationUser.getRole().equals("membre"))
 		{
-	 response.sendRedirect("JSP/BienvenueMembre.jsp");
+			
+	 response.sendRedirect(source);
 	 System.out.println(authentificationUser.getRole());
 		}
 		else
@@ -58,7 +61,7 @@ public class Authentification extends HttpServlet {
 	{
 		String message ="login ou pwd incorrect";
 	    session.setAttribute("message", message);
-		response.sendRedirect("JSP/index.jsp");
+		response.sendRedirect(source);
 	}
 		
 		

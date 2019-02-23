@@ -114,4 +114,18 @@ catch (Exception e) {
 	return null;
 }
 }
+
+public static List<ArticleEnchereHollandaise> getAllArticlesEnchereHollandaiseTrieParDate(){
+	try {
+	SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").buildSessionFactory();
+	Session session = sessionFactory.openSession();
+	Transaction tnx = session.beginTransaction();
+	Query queryArticleEnchereHollandaise = session.createQuery("From ArticleEnchereHollandaise order by dateFin desc");
+	List<ArticleEnchereHollandaise> listArticleEnchereHollandaise = queryArticleEnchereHollandaise.list();
+	return listArticleEnchereHollandaise;
+}
+catch (Exception e) {
+	return null;
+}
+}	
 }

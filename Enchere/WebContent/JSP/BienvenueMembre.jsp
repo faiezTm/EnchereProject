@@ -182,9 +182,8 @@ session.setAttribute("listConfig",listConfig);
 						data-toggle="dropdown"> <i class="ti-home"></i> <span>ACCUEIl</span>
 					</a></li>
 
-					<li class="dropdown"><a href class="dropdown-toggle"
-						data-toggle="dropdown"> <i class="ti-package"></i> <span>VENDRE</span>
-					</a></li>
+					<li class="dropdown"><a href="Vendre.jsp" class="dropdown-toggle"><i class="ti-package"></i> <span>VENDRE</span></a></li>
+
 
 
 					<li class="dropdown"><a href class="dropdown-toggle"

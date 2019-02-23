@@ -1,3 +1,4 @@
+<%@page import="java.text.DateFormat"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 	 <%@ taglib uri= "http://java.sun.com/jsp/jstl/core" prefix ="c" %> 
@@ -6,6 +7,16 @@
 	 <%@ page import="com.enchere.entities.ConfigurationSite"%>
 	 <%@ page import="com.enchere.entities.Rubrique"%>
 	 <%@ page import="com.enchere.dao.RubriqueDao"%>
+	 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="java.sql.Blob" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.*" %>
+<%@ page import="org.apache.tomcat.util.codec.binary.Base64" %>
+<%@ page import="com.enchere.dao.ArticleDao" %>
+<%@ page import="com.enchere.entities.ArticleEnchereHollandaise" %>
+
+<%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -61,7 +72,7 @@ List <ConfigurationSite> listConfig=ConfigDao.getConfig();
 session.setAttribute("listConfig",listConfig);
 
 %>
-<div id="app">
+	<div id="app">
 		<!-- sidebar -->
 		<div class="sidebar app-aside" id="sidebar">
 			<div class="sidebar-container perfect-scrollbar">
@@ -85,9 +96,9 @@ session.setAttribute("listConfig",listConfig);
 				<div class="navbar-title">
 					<span>Main Navigation</span>
 				</div>
-
-
-<ul class="main-navigation-menu">
+	
+ 
+				<ul class="main-navigation-menu">
 					<div class="navbar-title item-media ">
 						<span style="color: #007AFF;"><b style="font-size: 15px">Catégorie</b></span>
 					</div>
@@ -151,6 +162,7 @@ session.setAttribute("listConfig",listConfig);
 					
 					</c:forEach>
 
+						
 				</nav>
 			</div>
 		</div>
@@ -177,18 +189,17 @@ session.setAttribute("listConfig",listConfig);
 			<!-- end: NAVBAR HEADER --> <!-- start: NAVBAR COLLAPSE -->
 			<div class="navbar-collapse collapse">
 				<ul class="nav navbar-right">
-				
-				<li class="dropdown"> <a href="ConfigFile.jsp" class="dropdown-toggle" >  <i class="ti-settings"></i><span>Configuration Site</span>
-					</a></li>
 					<li class="dropdown"><a href class="dropdown-toggle"
 						data-toggle="dropdown"> <i class="ti-home"></i> <span>ACCUEIl</span>
 					</a></li>
 
-					<li class="dropdown"><a href="Vendre.jsp" class="dropdown-toggle"><i class="ti-package"></i> <span>VENDRE</span></a></li>
-
-
 					<li class="dropdown"><a href class="dropdown-toggle"
-						data-toggle="dropdown"> <i class="ti-key"></i> <span>S'INSCRIRE</span>
+						data-toggle="dropdown"> <i class="ti-package"></i> <span>VENDRE</span>
+					</a></li>
+
+
+					<li class="dropdown"><a href="Inscription.jsp"  class="dropdown-toggle"
+						> <i class="ti-key"></i> <span>S'INSCRIRE</span>
 					</a></li>
 					<!-- start: MESSAGES DROPDOWN -->
 					<li class="dropdown"><a href class="dropdown-toggle"
@@ -208,6 +219,193 @@ session.setAttribute("listConfig",listConfig);
 			<!-- end: TOP NAVBAR -->
 			<div class="main-content">
 				<div class="wrap-content container" id="container"></div>
+				<%
+
+				ArticleEnchereHollandaise Art=null;
+				byte[] img = null;
+				Blob b = null;
+				int id = Integer.parseInt(request.getParameter("id"));
+				
+				HttpSession s=request.getSession();
+				Art =(ArticleEnchereHollandaise)s.getAttribute("art");
+				DateFormat.getDateInstance(DateFormat.MEDIUM ).format( Art.getDateFin() ) ;
+				
+				long nbJours = ((Art.getDateFin().getTime() -  new Date().getTime()) /3600000)/24;
+				long nbHeures = ((Art.getDateFin().getTime() -  new Date().getTime()) /3600000)%24;
+	           
+				
+				%>
+				<div class="col-sm-5 col-md-4" style="width:100%;">
+														<div class="user-left" >
+														<div class="panel panel-white" style="float:right; width:300x;margin-top:5%;">
+												
+												<form role="form" class="form-horizontal" style="width:700px;height:600px;" method="POST" action="../TestEncherir" >
+												<br>
+												<p>Reste :<%=nbJours  %> J <%=nbHeures  %>H </p>
+														<div class="form-group">
+															<label class="col-sm-2 control-label" for="inputEmail3">
+																Quantite
+															</label>
+															<div class="col-sm-10">
+																<input type="number" placeholder="Email" id="inputEmail3" class="form-control" name="quantite">
+															</div>
+														</div>
+														<div class="form-group">
+															<label class="col-sm-2 control-label" for="inputPassword3">
+																Prix Proposé par l'acheteur
+															</label>
+															<div class="col-sm-10">
+																<input type="number" step="any" placeholder="Prix" id="inputPassword3" style=" width:500px;" name="prix">
+															</div>
+														</div>
+														
+														<div class="form-group margin-bottom-0">
+															<div class="col-sm-offset-2 col-sm-10">
+																<button class="btn btn-o btn-primary" type="submit">
+																	Encherir
+																</button>
+															</div>
+														</div>
+														
+													</form>
+												
+												
+												
+												
+											</div>
+												
+															<div class="center"  style="margin-right:30%;" >
+														      
+																<h4 >${ art.getDefinitionArt() }</h4>
+																<div  >
+																	<div class="user-image" >
+																		
+																		<div class="fileinput-new thumbnail" style="width:200px;height:200px;" ><img style="width:180px;height:180px;" src="${image }" alt="">
+																		</div>
+																		
+																		<div class="user-image-buttons">
+																			
+																			
+																		</div>
+																	</div>
+																</div>
+																
+															</div>
+															<table class="table table-condensed">
+																<thead>
+																	<tr>
+																		<th colspan="3">information sur l'article</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>Offre en Cours</td>
+																		<td>
+																		<a href="#">
+																			www.example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Envoyer une offres</td>
+																
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Quantite:</td>
+																		<td>(641)-734-4763</td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Nombre d'enchère</td>
+																		<td>
+																		<a href="">
+																			peterclark82
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Liee</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Pays</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Fin dans</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Date de début</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>date de fin</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>statut</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																</tbody>
+															</table>
+															<table class="table">
+																<thead>
+																	<tr>
+																		<th colspan="3">Description</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>${art.getDescription()}</td>
+																	</tr>
+													
+																</tbody>
+															</table>
+															<table class="table">
+																<thead>
+																	<tr>
+																		<th colspan="3">Livraison</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>aaaa</td>
+																		
+																	</tr>
+																	
+																		
+																</tbody>
+															</table>
+														</div>
+													</div>
+				
+				
 			</div>
 		</div>
 
@@ -217,6 +415,7 @@ session.setAttribute("listConfig",listConfig);
 
 
 	</div>
+
 	<!-- start: MAIN JAVASCRIPTS -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>

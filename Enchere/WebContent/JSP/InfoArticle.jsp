@@ -14,6 +14,7 @@
 <%@ page import="org.apache.tomcat.util.codec.binary.Base64" %>
 <%@ page import="com.enchere.dao.ArticleDao" %>
 <%@ page import="com.enchere.entities.ArticleEnchereHollandaise" %>
+<%@ page import="com.enchere.entities.Article" %>
 <%@ page import="java.sql.SQLException" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -94,9 +95,10 @@ session.setAttribute("listConfig",listConfig);
 				<div class="navbar-title">
 					<span>Main Navigation</span>
 				</div>
-   <c:if test="${ user==null}">
-				<form class="form-login" action="../Authentification" method="post">
-					<fieldset>
+				<c:if test="${ user==null}">
+
+				<form class="form-login" action="../Authentification" method="post" >
+					<fieldset id="formAuth">
 
 						<p>Please enter your name and password to log in.</p>
 						<div class="form-group">
@@ -124,7 +126,7 @@ session.setAttribute("listConfig",listConfig);
 						<br>
 						<br>
 						<div class="new-account">
-							Don't have an account yet? <a href="login_registration.html">
+							Don't have an account yet? <a href="Inscription.jsp">
 								Create an account </a>
 						</div>
 					</fieldset>
@@ -253,33 +255,195 @@ session.setAttribute("listConfig",listConfig);
 			<div class="main-content">
 				<div class="wrap-content container" id="container"></div>
 				<%
-											byte[] img = null;
-											Blob b = null;
-											List<ArticleEnchereHollandaise> listArticleEnchereHollandaise = ArticleDao.getAllArticlesEnchereHollandaiseTrieParDate();
-											session.setAttribute("listArticleHollandaise", listArticleEnchereHollandaise);
-											out.println("<table><tr >");
-											int compt =0;
-											for (ArticleEnchereHollandaise articleEnchereHollandaise : listArticleEnchereHollandaise) {
-												compt++;
-												try {
-													b = articleEnchereHollandaise.getPhoto();
-													int blobLength = (int) b.length();
-													img = b.getBytes(1,blobLength);
-										            String base64Encoded = new String(Base64.decodeBase64(img));
-										            out.println("<td   ><div style= 'width:200px;height:200px;' ><a href='InfoArticle.jsp?id="+articleEnchereHollandaise.getIdArticle()+"'  class='dropdown-toggle'><img src='"+base64Encoded+"'  style= 'width:150px;height:150px;margin-left:30px;'/><p  style= 'color:black;width:150px;margin-left:30px;'>"+articleEnchereHollandaise.getDescription()+"</p></a></div></td>");
-													if(compt==5)
-													{
-														compt=0;
-														out.println("</tr><tr>");
-													}
+
+				ArticleEnchereHollandaise Art=null;
+				byte[] img = null;
+				Blob b = null;
+				int id = Integer.parseInt(request.getParameter("id"));
+				
+				List<ArticleEnchereHollandaise> listArticleEnchereHollandaise =(List<ArticleEnchereHollandaise>)session.getAttribute("listArticleHollandaise");
+				for (ArticleEnchereHollandaise articleEnchereHollandaise : listArticleEnchereHollandaise) {
+					
+				if (articleEnchereHollandaise.getIdArticle()==id)
+				{
+					 Art=articleEnchereHollandaise;
+				}
+				}
+				session.setAttribute("art", Art);
+				b = Art.getPhoto();
+				int blobLength = (int) b.length();
+				img = b.getBytes(1,blobLength);
+	            String base64Encoded = new String(Base64.decodeBase64(img));
+	            session.setAttribute("image", base64Encoded);
+	           
+				
+				%>
+				<div class="col-sm-5 col-md-4" style="width:100%;">
+														<div class="user-left" >
+														<div class="panel panel-white" style="float:right; width:300x;margin-top:5%;">
+												<div class="panel-heading">
+													<div class="panel-title">
+														Information vendeur
+													</div>
+												</div>
+												<div class="panel-body">
+													<p class="margin-bottom-30">
+														This modal slide up from the bottom of the page.
+													</p>
+													<a href="#">Autres objets proposées par ce vendeur</a>
+												</div>
+											</div>
+												<c:if test="${ user==null}">		<p style="float:left; width:150px;margin-top:10%;">vous devez étre enregistrer afin de pouvoir
+														      encherir <a href="#" onclick="color();">Connexion a l'espace membre</a> </p>
+													</c:if>
+															<div class="center"  style="margin-right:30%;" >
+														      
+																<h4 >${ art.getDefinitionArt() }</h4>
+																<div  >
+																	<div class="user-image" >
+																		
+																		<div class="fileinput-new thumbnail" style="width:200px;height:200px;" ><img style="width:180px;height:180px;" src="${image }" alt="">
+																		</div>
+																		
+																		<div class="user-image-buttons">
+																			
+																			
+																		</div>
+																	</div>
+																</div>
+																
+															</div>
+															<table class="table table-condensed">
+																<thead>
+																	<tr>
+																		<th colspan="3">information sur l'article</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>Offre en Cours</td>
+																		<td>
+																		<a href="#">
+																			www.example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Envoyer une offres</td>
+																		<td>
+																		<c:if test="${user!=null}" >
+																		<% HttpSession s=request.getSession();
+																		s.setAttribute("chemin","Enchere.jsp?id="+id);
+																		s.setAttribute("color()","vide()");
+																		%>
+																		</c:if>
+																		<c:if test="${user==null}" >
+																		<% HttpSession s=request.getSession(); 
+																		ArticleEnchereHollandaise art=(ArticleEnchereHollandaise)s.getAttribute("art");
+																		s.setAttribute("chemin", "/Enchere"+request.getServletPath()+"?id="+art.getIdArticle());
+																		s.setAttribute("color","color()");
+																		%>
+																		</c:if>
+																		
+																		<a href="${chemin} " onClick="${color}">
+																			encherir
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Quantite:</td>
+																		<td>(641)-734-4763</td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Nombre d'enchère</td>
+																		<td>
+																		<a href="">
+																			peterclark82
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Liee</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Pays</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Fin dans</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>Date de début</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>date de fin</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																	<tr>
+																		<td>statut</td>
+																		<td>
+																		<a href="">
+																			peter@example.com
+																		</a></td>
+																		<td><a href="#panel_edit_account" class="show-tab"><i class="fa fa-pencil edit-user-info"></i></a></td>
+																	</tr>
+																</tbody>
+															</table>
+															<table class="table">
+																<thead>
+																	<tr>
+																		<th colspan="3">Description</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>${art.getDescription()}</td>
+																	</tr>
 													
-												} catch (SQLException e) {
-													
-													e.printStackTrace();
-												}
-											}
-											 
-											%>
+																</tbody>
+															</table>
+															<table class="table">
+																<thead>
+																	<tr>
+																		<th colspan="3">Livraison</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr>
+																		<td>aaaa</td>
+																		
+																	</tr>
+																	
+																		
+																</tbody>
+															</table>
+														</div>
+													</div>
+				
 				
 			</div>
 		</div>
@@ -290,6 +454,21 @@ session.setAttribute("listConfig",listConfig);
 
 
 	</div>
+	<script >
+	function color()
+	{
+	var elform=document.getElementById("formAuth").style.backgroundColor="red";
+	setTimeout(colorInit, 1000);
+	function colorInit()
+	{
+		document.getElementById("formAuth").style.backgroundColor="white"
+	}
+	}
+	function vide()
+	{
+	
+	}
+	</script>
 	<!-- start: MAIN JAVASCRIPTS -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
